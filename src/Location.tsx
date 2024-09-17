@@ -3,13 +3,107 @@ import BasicModal from "./components/ModalComp";
 import BasicTable from "./components/TableComp"; // Import BasicTable
 import { useState } from "react";
 import OutlinedCard from "./components/CardComp";
-import BasicTableFront from "./components/TableFront";
+import FrontBasicTable from "./components/FrontTableComp";
+
+// import BasicTableFront from "./components/TableFront";
 
 function Location() {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [locationName, setLocationName] = useState<string[]>([]); // Typing locationName as an array of strings
   const [updateIndex, setUpdateIndex] = useState<number | null>(null); // State to store the index of the task being updated
+
+  const [frontTable, setFrontTable] = useState<any>([
+    {
+      day: "Sunday",
+      value: [
+        {
+          id: 1,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+        {
+          id: 2,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+
+    {
+      day: "Monday",
+      value: [
+        {
+          id: 2,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+
+    {
+      day: "Tuesday",
+      value: [
+        {
+          id: 3,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+
+    {
+      day: "Wednesday",
+      value: [
+        {
+          id: 4,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+
+    {
+      day: "Thursday",
+      value: [
+        {
+          id: 5,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+
+    {
+      day: "Friday",
+      value: [
+        {
+          id: 6,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+
+    {
+      day: "Saturday",
+      value: [
+        {
+          id: 7,
+          Time: { startTime: "", endTime: "" },
+          Session: [],
+          Location: "",
+        },
+      ],
+    },
+  ]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -82,7 +176,8 @@ function Location() {
       </Stack>
 
       {/* Pass locationName as a prop to BasicTableFront */}
-      <BasicTableFront locationName={locationName} />
+      {/* <BasicTableFront locationName={locationName} /> */}
+      <FrontBasicTable frontTable={frontTable} />
     </>
   );
 }
