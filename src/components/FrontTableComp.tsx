@@ -11,6 +11,7 @@ import AppointmentTypeSelect from "../AutocompleteComp";
 import BasicSelectTwo from "../SelectLocComp";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import { IconButton } from "@mui/material";
 
 // Define the prop types
 interface Time {
@@ -29,7 +30,6 @@ interface Value {
 interface DayTable {
   day: string;
   value: Value[];
-  showPlusIcon: boolean; // Track if the plus icon should be shown
 }
 
 interface FrontBasicTableProps {
@@ -43,6 +43,7 @@ export default function FrontBasicTable({
   frontTable,
   setFrontTable,
 }: FrontBasicTableProps) {
+  // Handle first time change
   const handleFirstTimeChange = (
     dayIndex: number,
     valueIndex: number,
@@ -54,6 +55,7 @@ export default function FrontBasicTable({
     setFrontTable(updatedTable);
   };
 
+  // Handle second time change
   const handleSecondTimeChange = (
     dayIndex: number,
     valueIndex: number,
@@ -64,6 +66,7 @@ export default function FrontBasicTable({
     setFrontTable(updatedTable);
   };
 
+  // Handle appointment type change
   const handleAppointmentTypeChange = (
     dayIndex: number,
     valueIndex: number,
@@ -89,11 +92,6 @@ export default function FrontBasicTable({
         appointmentType: [], // Empty appointment type array
       };
       currentDay.value.push(newRow); // Add new row
-
-      // Update showPlusIcon based on the number of rows
-      if (currentDay.value.length >= 3) {
-        currentDay.showPlusIcon = false;
-      }
       setFrontTable(updatedTable);
     }
   };
@@ -104,11 +102,6 @@ export default function FrontBasicTable({
     const currentDay = updatedTable[dayIndex];
 
     currentDay.value.splice(valueIndex, 1); // Remove the row at valueIndex
-
-    // Update showPlusIcon based on the number of rows
-    if (currentDay.value.length < 3) {
-      currentDay.showPlusIcon = true;
-    }
     setFrontTable(updatedTable);
   };
 
@@ -130,6 +123,7 @@ export default function FrontBasicTable({
             <React.Fragment key={dayEntry.day}>
               {dayEntry.value.map((entry, valueIndex) => (
                 <TableRow key={entry.id}>
+                  {/* Only show the day once (in the first row) */}
                   {valueIndex === 0 && (
                     <TableCell rowSpan={dayEntry.value.length}>
                       {dayEntry.day}
@@ -163,7 +157,23 @@ export default function FrontBasicTable({
                       locationOptions={locationName}
                     />
                   </TableCell>
-                  <TableCell></TableCell>
+                  <TableCell>
+                    {/* Show "Add" button only in the first row and if there are fewer than 3 rows */}
+                    {valueIndex === 0 && dayEntry.value.length < 3 && (
+                      <IconButton onClick={() => repeatRow(dayIndex)}>
+                        <AddCircleOutlineIcon />
+                      </IconButton>
+                    )}
+
+                    {/* Show "Remove" button for all rows except the first one */}
+                    {valueIndex !== 0 && (
+                      <IconButton
+                        onClick={() => removeRow(dayIndex, valueIndex)}
+                      >
+                        <RemoveCircleIcon />
+                      </IconButton>
+                    )}
+                  </TableCell>
                 </TableRow>
               ))}
             </React.Fragment>
