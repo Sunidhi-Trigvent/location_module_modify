@@ -14,7 +14,7 @@ This is a react-based project module that allows user to schedule appointment.
 
 ## Installation
 
---bash
+```bash
 
 # Install dependencies
 
