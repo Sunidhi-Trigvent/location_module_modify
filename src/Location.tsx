@@ -1,11 +1,8 @@
 import { Button, Divider, Stack, Typography } from "@mui/material";
 import BasicModal from "./components/ModalComp";
-import BasicTable from "./components/TableComp"; // Import BasicTable
+import FrontBasicTable from "./components/FrontTableComp";
 import { useState } from "react";
 import OutlinedCard from "./components/CardComp";
-import FrontBasicTable from "./components/FrontTableComp";
-
-// import BasicTableFront from "./components/TableFront";
 
 function Location() {
   const [open, setOpen] = useState(false);
@@ -23,15 +20,8 @@ function Location() {
           Session: [],
           Location: "",
         },
-        {
-          id: 2,
-          Time: { startTime: "", endTime: "" },
-          Session: [],
-          Location: "",
-        },
       ],
     },
-
     {
       day: "Monday",
       value: [
@@ -43,7 +33,6 @@ function Location() {
         },
       ],
     },
-
     {
       day: "Tuesday",
       value: [
@@ -55,7 +44,6 @@ function Location() {
         },
       ],
     },
-
     {
       day: "Wednesday",
       value: [
@@ -67,7 +55,6 @@ function Location() {
         },
       ],
     },
-
     {
       day: "Thursday",
       value: [
@@ -79,7 +66,6 @@ function Location() {
         },
       ],
     },
-
     {
       day: "Friday",
       value: [
@@ -91,7 +77,6 @@ function Location() {
         },
       ],
     },
-
     {
       day: "Saturday",
       value: [
@@ -104,6 +89,8 @@ function Location() {
       ],
     },
   ]);
+
+  console.log(frontTable);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -175,9 +162,12 @@ function Location() {
         />
       </Stack>
 
-      {/* Pass locationName as a prop to BasicTableFront */}
-      {/* <BasicTableFront locationName={locationName} /> */}
-      <FrontBasicTable frontTable={frontTable} />
+      {/* Pass frontTable, setFrontTable, locationName, and showLocation to FrontBasicTable */}
+      <FrontBasicTable
+        frontTable={frontTable}
+        setFrontTable={setFrontTable}
+        locationName={locationName}
+      />
     </>
   );
 }

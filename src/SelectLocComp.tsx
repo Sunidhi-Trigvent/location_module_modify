@@ -6,36 +6,40 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface BasicSelectTwoProps {
-  locationOptions: string[]; // Accept locationOptions as a prop
+  locationOptions: string[];
+  appointmentType: string[]; // Accept appointmentType as a prop
 }
 
 export default function BasicSelectTwo({
+  appointmentType,
   locationOptions,
 }: BasicSelectTwoProps) {
-  const [location, setLocation] = React.useState("");
+  const [location, setLocation] = React.useState<string>("");
 
-  const handleChange = (event: SelectChangeEvent) => {
-    setLocation(event.target.value as string);
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setLocation(event.target.value);
   };
 
-  return (
+  const showLocation = appointmentType?.includes("Inperson");
+
+  return showLocation ? (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Location</InputLabel>
+        <InputLabel id="location-select-label">Location</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          labelId="location-select-label"
+          id="location-select"
           value={location}
           label="Location"
           onChange={handleChange}
         >
-          {locationOptions?.map((loc: string, i: number) => (
-            <MenuItem key={i} value={loc}>
+          {locationOptions.map((loc, index) => (
+            <MenuItem key={index} value={loc}>
               {loc}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
     </Box>
-  );
+  ) : null;
 }

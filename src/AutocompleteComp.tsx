@@ -1,5 +1,5 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+import Box from "@mui/material/Box"; // Import Box
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
@@ -10,25 +10,22 @@ interface OptionType {
 }
 
 interface AppointmentTypeSelectProps {
-  onSelect: (value: string[]) => void; // Accept array of strings
+  setAppointmentType: (types: string[]) => void;
 }
 
 export default function AppointmentTypeSelect({
-  onSelect,
+  setAppointmentType,
 }: AppointmentTypeSelectProps) {
+  const handleChange = (event: any, value: OptionType[]) => {
+    setAppointmentType(value.map((item) => item.label));
+  };
+
   const options: OptionType[] = [
     { label: "Virtual", code: "V", phone: "" },
     { label: "Inperson", code: "I", phone: "" },
     { label: "Phone", code: "P", phone: "" },
     { label: "Text", code: "T", phone: "" },
   ];
-
-  const handleChange = (
-    event: React.SyntheticEvent,
-    value: OptionType[] | null // Array of selected values
-  ) => {
-    onSelect(value ? value.map((option) => option.label) : []); // Pass array of labels
-  };
 
   return (
     <Autocomplete
@@ -70,7 +67,7 @@ export default function AppointmentTypeSelect({
           }}
         />
       )}
-      onChange={handleChange} // Handle multiple selection
+      onChange={handleChange}
     />
   );
 }
