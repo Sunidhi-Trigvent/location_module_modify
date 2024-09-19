@@ -1,4 +1,4 @@
-![NPM version]
+[NPM version]
 
 
 # Appointment Scheduling Module
