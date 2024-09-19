@@ -24,7 +24,6 @@ interface Value {
   Time: Time;
   Session: string[];
   Location: string;
-  appointmentType: string[]; // Track appointment types for each row
 }
 
 interface DayTable {
@@ -73,7 +72,18 @@ export default function FrontBasicTable({
     types: string[]
   ) => {
     const updatedTable = [...frontTable];
-    updatedTable[dayIndex].value[valueIndex].appointmentType = types;
+    updatedTable[dayIndex].value[valueIndex].Session = types;
+    setFrontTable(updatedTable);
+  };
+
+  // Handle location change
+  const handleLocationChange = (
+    dayIndex: number,
+    valueIndex: number,
+    newLocation: string
+  ) => {
+    const updatedTable = [...frontTable];
+    updatedTable[dayIndex].value[valueIndex].Location = newLocation; // Update the Location
     setFrontTable(updatedTable);
   };
 
@@ -85,11 +95,10 @@ export default function FrontBasicTable({
     // Add a new row if there are fewer than 3 rows for the given day
     if (currentDay.value.length < 3) {
       const newRow = {
-        id: Math.random(), // New unique ID
+        id: currentDay.value.length + 1, // New unique ID
         Time: { startTime: "", endTime: "" }, // Empty Time fields
-        Session: [], // Empty Session array
+        Session: [], // Empty appointment type array
         Location: "", // Empty Location
-        appointmentType: [], // Empty appointment type array
       };
       currentDay.value.push(newRow); // Add new row
       setFrontTable(updatedTable);
@@ -153,8 +162,11 @@ export default function FrontBasicTable({
                   </TableCell>
                   <TableCell>
                     <BasicSelectTwo
-                      appointmentType={entry.appointmentType}
+                      appointmentType={entry.Session}
                       locationOptions={locationName}
+                      onLocationChange={(newLocation) =>
+                        handleLocationChange(dayIndex, valueIndex, newLocation)
+                      } // Pass the onLocationChange handler
                     />
                   </TableCell>
                   <TableCell>

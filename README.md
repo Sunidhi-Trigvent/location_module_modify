@@ -9,7 +9,7 @@ This is a react-based project module that allows user to schedule appointment.
 
 ## Installation
 
---bash
+```bash
 
 # Install dependencies
 
@@ -33,7 +33,7 @@ npm start
 │ ├── css
 ├── fonts
 │ ├── App.tsx
-│  
+│
 └── README.md
 
 ...
@@ -41,3 +41,4 @@ npm start
 ## Versions
 
 node version v18.19.0
+```
