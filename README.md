@@ -1,4 +1,4 @@
-![NPM version][npm-image]
+![NPM version]
 
 
 # Appointment Scheduling Module
