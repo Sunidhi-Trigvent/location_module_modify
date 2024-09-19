@@ -1,3 +1,8 @@
+![NPM version][npm-image]
+
+
+# Appointment Scheduling Module
+
 ## Inroduction
 
 This is a react-based project module that allows user to schedule appointment.
@@ -19,12 +24,11 @@ npm install
 
 npm start
 
-...
+```
 
 ## Folder Structure
 
-...
-
+```
 ├── public
 │ ├── index.html
 │ └── ...
@@ -36,7 +40,7 @@ npm start
 │  
 └── README.md
 
-...
+```
 
 ## Versions
 
