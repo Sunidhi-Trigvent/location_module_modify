@@ -1,4 +1,4 @@
-![NPM version]
+![NPM version][npm-image]
 
 
 # Appointment Scheduling Module
@@ -45,3 +45,5 @@ npm start
 ## Versions
 
 node version v18.19.0
+
+[npm-image]: https://img.shields.io/badge/npm-v8.19.3-blue.svg
