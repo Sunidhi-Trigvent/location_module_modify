@@ -1,3 +1,8 @@
+![NPM version][npm-image]
+
+
+# Appointment Scheduling Module
+
 ## Inroduction
 
 This is a react-based project module that allows user to schedule appointment.
@@ -19,12 +24,11 @@ npm install
 
 npm start
 
-...
+```
 
 ## Folder Structure
 
-...
-
+```
 ├── public
 │ ├── index.html
 │ └── ...
@@ -36,9 +40,14 @@ npm start
 │
 └── README.md
 
-...
+```
 
 ## Versions
 
 node version v18.19.0
+<<<<<<< HEAD
 ```
+=======
+
+[npm-image]: https://img.shields.io/badge/npm-v8.19.3-blue.svg
+>>>>>>> 9e7496860f4eb00f9cf497513a9481001418fea6
