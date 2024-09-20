@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import BasicTable from "./TableComp";
+import { useSelector } from "react-redux";
 
 export default function BoxBasic({
   locationName,
@@ -9,6 +10,10 @@ export default function BoxBasic({
   handleUpdate,
 }: any) {
   console.log(locationName);
+
+  const array = useSelector((state: any) => {
+    console.log(state?.locationModule?.schedulingArray);
+  });
 
   return (
     <Box component="section" sx={{ p: 2, border: "1px dashed grey" }}>

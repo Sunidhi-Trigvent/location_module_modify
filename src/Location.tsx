@@ -3,14 +3,35 @@ import BasicModal from "./components/ModalComp";
 import FrontBasicTable from "./components/FrontTableComp";
 import { useState } from "react";
 import OutlinedCard from "./components/CardComp";
+import { useDispatch } from "react-redux";
+import { manageArray } from "./redux/locationModuleSlice";
+
+// Define interfaces for typing
+interface Time {
+  startTime: string;
+  endTime: string;
+}
+
+interface Session {
+  id: number;
+  Time: Time;
+  Session: string[];
+  Location: string;
+}
+
+interface FrontTableEntry {
+  day: string;
+  value: Session[];
+}
 
 function Location() {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
-  const [locationName, setLocationName] = useState<string[]>([]); // Typing locationName as an array of strings
-  const [updateIndex, setUpdateIndex] = useState<number | null>(null); // State to store the index of the task being updated
+  const [locationName, setLocationName] = useState<string[]>([]);
+  const [updateIndex, setUpdateIndex] = useState<number | null>(null);
 
-  const [frontTable, setFrontTable] = useState<any>([
+  const [frontTable, setFrontTable] = useState<FrontTableEntry[]>([
     {
       day: "Sunday",
       value: [
@@ -92,6 +113,11 @@ function Location() {
 
   console.log(frontTable);
 
+  const handleSaveArray = () => {
+    // const savedArray = frontTable.map((item: FrontTableEntry) => ({ ...item }));
+    dispatch(manageArray(frontTable));
+  };
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -101,35 +127,31 @@ function Location() {
 
   const handleSave = () => {
     if (updateIndex === null) {
-      // Add a new location if updateIndex is null
       setLocationName((prev) => [...prev, inputValue]);
     } else {
-      // Update the existing location
       const updatedLocations = [...locationName];
-      updatedLocations[updateIndex] = inputValue; // Update location with the new input
+      updatedLocations[updateIndex] = inputValue;
       setLocationName(updatedLocations);
-      setUpdateIndex(null); // Reset update index after update
+      setUpdateIndex(null);
     }
-    setInputValue(""); // Clear the input field
-    setOpen(false); // Close the modal
+    setInputValue("");
+    setOpen(false);
   };
 
   const handleCancel = () => {
-    setInputValue(""); // Clear the input field
-    setOpen(false); // Close the modal
+    setInputValue("");
+    setOpen(false);
   };
 
-  // Function to handle remove action
   const handleRemove = (i: number) => {
     const updatedList = locationName.filter((_, id) => id !== i);
     setLocationName(updatedList);
   };
 
-  // Function to handle update action
   const handleUpdate = (i: number) => {
-    setInputValue(locationName[i]); // Set the input value to the location being updated
-    setUpdateIndex(i); // Set the index of the location being updated
-    setOpen(true); // Open the modal
+    setInputValue(locationName[i]);
+    setUpdateIndex(i);
+    setOpen(true);
   };
 
   return (
@@ -154,7 +176,6 @@ function Location() {
           />
         </Stack>
         <Divider />
-        {/* Pass locationName, handleRemove, and handleUpdate to OutlinedCard */}
         <OutlinedCard
           locationName={locationName}
           handleRemove={handleRemove}
@@ -162,12 +183,23 @@ function Location() {
         />
       </Stack>
 
-      {/* Pass frontTable, setFrontTable, locationName, and showLocation to FrontBasicTable */}
       <FrontBasicTable
         frontTable={frontTable}
         setFrontTable={setFrontTable}
         locationName={locationName}
       />
+      <br />
+      <Stack
+        direction={"row"}
+        alignItems={"center"}
+        p={1}
+        justifyContent={"center"}
+        spacing={2}
+      >
+        <Button variant="contained" onClick={handleSaveArray}>
+          Save Array
+        </Button>
+      </Stack>
     </>
   );
 }

@@ -12,10 +12,10 @@ export const locationModuleSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     manageArray: (state: any, action: any) => ({
-      schedulingArray: (state.value = action.payload),
+      schedulingArray: action.payload,
     }),
   },
 });
 
-export const { manageArray } = locationModuleSlice.actions;
+export const { manageArray }: any = locationModuleSlice.actions;
 export default locationModuleSlice.reducer;
